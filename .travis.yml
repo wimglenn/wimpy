@@ -8,11 +8,11 @@ python:
   - "nightly"
   - "pypy"
 
-install: 
+install:
   - pip install --upgrade --requirement requirements-test.txt
   - pip install --editable .
 
-script: 
+script:
   - pytest --cov=wimpy
 
 after_success:
