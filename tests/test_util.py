@@ -52,3 +52,5 @@ def test_cached_property():
     del a.prop  # this deletes from instance dict
     with pytest.raises(AttributeError):
         del a.prop  # .. but you can't delete the descriptor
+    assert isinstance(a.prop, float)
+    assert isinstance(A.prop, cached_property)
