@@ -1,0 +1,23 @@
+language: python
+
+sudo: false
+
+python:
+  - "2.7"
+  - "3.6"
+  - "nightly"
+  - "pypy"
+
+install:
+  - pip install --upgrade --requirement requirements-test.txt
+  - pip install --editable .
+
+script:
+  - pytest --cov=wimpy
+
+after_success:
+  - coverage combine
+  - coveralls
+
+notifications:
+  email: false

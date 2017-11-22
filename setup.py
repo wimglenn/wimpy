@@ -9,5 +9,4 @@ setup(
     author_email='hey@wimglenn.com',
     license='MIT',
     packages=find_packages(exclude=['tests']),
-    python_requires=f'>=3.6',
 )
