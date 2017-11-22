@@ -26,7 +26,7 @@ class cached_property(object):
 def working_directory(path):
     """Change working directory and restore the previous on exit"""
     prev_dir = os.getcwd()
-    os.chdir(path)
+    os.chdir(str(path))
     try:
         yield
     finally:
