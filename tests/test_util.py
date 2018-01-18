@@ -3,10 +3,12 @@ from random import random
 
 import pytest
 
-from wimpy.util import cached_property
-from wimpy.util import strip_prefix
-from wimpy.util import strip_suffix
-from wimpy.util import working_directory
+from wimpy import cached_property
+from wimpy import ceiling_division
+from wimpy import grouper
+from wimpy import strip_prefix
+from wimpy import strip_suffix
+from wimpy import working_directory
 
 
 @pytest.mark.parametrize('in_,pre,out', [
@@ -54,3 +56,23 @@ def test_cached_property():
         del a.prop  # .. but you can't delete the descriptor
     assert isinstance(a.prop, float)
     assert isinstance(A.prop, cached_property)
+
+
+@pytest.mark.parametrize('numerator,denominator,result', [
+    (51, 10, 6),
+    (50, 10, 5),
+    (49, 10, 5),
+    (-49, 10, -4),
+])
+def test_ceiling_div(numerator, denominator, result):
+    assert ceiling_division(numerator, denominator) == result
+
+
+
+@pytest.mark.parametrize('iterable,n,fillvalue,result', [
+    (range(6), 2, None, [(0, 1), (2, 3), (4, 5)]),
+    (range(5), 2, None, [(0, 1), (2, 3), (4, None)]),
+    (range(5), 2, 123, [(0, 1), (2, 3), (4, 123)]),
+])
+def test_grouper(iterable, n, fillvalue, result):
+    assert list(grouper(iterable, n, fillvalue)) == result

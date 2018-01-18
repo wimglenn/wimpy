@@ -2,8 +2,10 @@ import os
 from contextlib import contextmanager
 from functools import update_wrapper
 
+from wimpy.compat import zip_longest
 
-__all__ = ['cached_property', 'working_directory', 'strip_prefix', 'strip_suffix']
+
+__all__ = ['cached_property', 'working_directory', 'strip_prefix', 'strip_suffix', 'ceiling_division', 'grouper']
 
 
 class cached_property(object):
@@ -45,3 +47,16 @@ def strip_suffix(s, suffix):
     if s.endswith(suffix):
         return s[:len(s) - len(suffix)]
     return s
+
+
+def ceiling_division(numerator, denominator):
+    """Divide and round up"""
+    # Implementation relies on Python's // operator using floor division (round down)
+    # This might surprise C users who expect rounding towards zero
+    return -(-numerator//denominator)
+
+
+def grouper(iterable, n, fillvalue=None):
+    """Yield successive non-overlapping chunks of size n from iterable"""
+    args = [iter(iterable)] * n
+    return zip_longest(*args, fillvalue=fillvalue)
