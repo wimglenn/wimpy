@@ -1,4 +1,4 @@
 try:
     from itertools import zip_longest
-except NameError:
+except ImportError:
     from itertools import izip_longest as zip_longest
