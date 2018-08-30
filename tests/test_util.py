@@ -81,9 +81,9 @@ def test_grouper(iterable, n, fillvalue, result):
 
 
 @pytest.mark.parametrize('iterable,chunk_size,overlap,result', [
-    ('1234567', 3, 0, [['1', '2', '3'], ['4', '5', '6'], ['7']]),
-    ('123456', 3, 0, [['1', '2', '3'], ['4', '5', '6']]),
-    ('123456', 4, 2, [['1', '2', '3', '4'], ['3', '4', '5', '6']]),
+    ('1234567', 3, 0, [('1', '2', '3'), ('4', '5', '6'), ('7',)]),
+    ('123456', 3, 0, [('1', '2', '3'), ('4', '5', '6')]),
+    ('123456', 4, 2, [('1', '2', '3', '4'), ('3', '4', '5', '6')]),
     ('', 3, 0, []),
 ])
 def test_chunks(iterable, chunk_size, overlap, result):
@@ -105,6 +105,6 @@ def test_chunks_doesnt_get_stuck_due_to_big_overlap():
 def test_chunks_from_infinite_generator():
     gen = iter(int, 1)
     g = chunks(gen, chunk_size=5)
-    assert next(g) == [0, 0, 0, 0, 0]
-    assert next(g) == [0, 0, 0, 0, 0]
-    assert next(g) == [0, 0, 0, 0, 0]
+    assert next(g) == (0, 0, 0, 0, 0)
+    assert next(g) == (0, 0, 0, 0, 0)
+    assert next(g) == (0, 0, 0, 0, 0)

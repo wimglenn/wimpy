@@ -80,11 +80,11 @@ def chunks(iterable, chunk_size=3, overlap=0):
         for i in range(chunk_size):
             queue.append(next(it))
         while True:
-            yield list(queue)
+            yield tuple(queue)
             # after yielding a chunk, get enough elements for the next chunk
             for i in range(chunk_size - overlap):
                 queue.append(next(it))
     except StopIteration:
         # if the iterator is exhausted, yield any remaining elements
         if i > 0:
-            yield list(queue)[-i-overlap:]
+            yield tuple(queue)[-i-overlap:]
