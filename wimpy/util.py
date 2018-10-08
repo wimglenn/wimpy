@@ -8,7 +8,16 @@ from wimpy.compat import zip_longest
 from wimpy.exceptions import WimpyError
 
 
-__all__ = ['cached_property', 'working_directory', 'strip_prefix', 'strip_suffix', 'ceiling_division', 'grouper', 'chunks']
+__all__ = [
+    "cached_property",
+    "working_directory",
+    "strip_prefix",
+    "strip_suffix",
+    "ceiling_division",
+    "grouper",
+    "chunks",
+    "is_subsequence",
+]
 
 
 class cached_property(object):
@@ -16,6 +25,7 @@ class cached_property(object):
     non-data descriptor: property is computed once per instance and then replaces itself
     with an ordinary attribute.  Deleting the attribute invalidates the cache.
     """
+
     def __init__(self, func):
         update_wrapper(self, func)
         self.func = func
@@ -41,14 +51,14 @@ def working_directory(path):
 def strip_prefix(s, prefix):
     """Removes the prefix, if it's there, otherwise returns input string unchanged"""
     if s.startswith(prefix):
-        return s[len(prefix):]
+        return s[len(prefix) :]
     return s
 
 
 def strip_suffix(s, suffix):
     """Removes the suffix, if it's there, otherwise returns input string unchanged"""
     if s.endswith(suffix):
-        return s[:len(s) - len(suffix)]
+        return s[: len(s) - len(suffix)]
     return s
 
 
@@ -56,7 +66,7 @@ def ceiling_division(numerator, denominator):
     """Divide and round up"""
     # Implementation relies on Python's // operator using floor division (round down)
     # This might surprise C users who expect rounding towards zero
-    return -(-numerator//denominator)
+    return -(-numerator // denominator)
 
 
 def grouper(iterable, n, fillvalue=None):
@@ -87,4 +97,14 @@ def chunks(iterable, chunk_size=3, overlap=0):
     except StopIteration:
         # if the iterator is exhausted, yield any remaining elements
         if i > 0:
-            yield tuple(queue)[-i-overlap:]
+            yield tuple(queue)[-i - overlap :]
+
+
+def is_subsequence(needle, haystack):
+    """Are all the elements of needle contained in haystack, and in the same order?
+    There may be other elements interspersed throughout"""
+    it = iter(haystack)
+    for element in needle:
+        if element not in it:
+            return False
+    return True
