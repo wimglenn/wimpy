@@ -102,8 +102,9 @@ def chunks(iterable, chunk_size=3, overlap=0):
                 queue.append(next(it))
     except StopIteration:
         # if the iterator is exhausted, yield any remaining elements
+        i += overlap
         if i > 0:
-            yield tuple(queue)[-i - overlap :]
+            yield tuple(queue)[-i:]
 
 
 def is_subsequence(needle, haystack):
