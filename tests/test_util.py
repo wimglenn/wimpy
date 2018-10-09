@@ -36,6 +36,16 @@ def test_strip_suffix(in_, suf, out):
     assert strip_suffix(in_, suf) == out
 
 
+def test_strip_prefix_strict():
+    with pytest.raises(WimpyError, match="string doesn't start with prefix"):
+        strip_prefix("www.yahoo.com", "ww.", strict=True)
+
+
+def test_strip_suffix_strict():
+    with pytest.raises(WimpyError, match="string doesn't end with suffix"):
+        strip_suffix("www.yahoo.com", ".org", strict=True)
+
+
 def test_working_directory(tmpdir):
     before = os.getcwd()
     with working_directory(tmpdir):

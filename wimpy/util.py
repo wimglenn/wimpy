@@ -48,17 +48,23 @@ def working_directory(path):
         os.chdir(prev_dir)
 
 
-def strip_prefix(s, prefix):
-    """Removes the prefix, if it's there, otherwise returns input string unchanged"""
+def strip_prefix(s, prefix, strict=False):
+    """Removes the prefix, if it's there, otherwise returns input string unchanged.
+    If strict is True, also ensures the prefix was present"""
     if s.startswith(prefix):
         return s[len(prefix) :]
+    elif strict:
+        raise WimpyError("string doesn't start with prefix")
     return s
 
 
-def strip_suffix(s, suffix):
-    """Removes the suffix, if it's there, otherwise returns input string unchanged"""
+def strip_suffix(s, suffix, strict=False):
+    """Removes the suffix, if it's there, otherwise returns input string unchanged.
+    If strict is True, also ensures the suffix was present"""
     if s.endswith(suffix):
         return s[: len(s) - len(suffix)]
+    elif strict:
+        raise WimpyError("string doesn't end with suffix")
     return s
 
 
