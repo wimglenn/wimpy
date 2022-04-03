@@ -10,4 +10,5 @@ setup(
     author_email="hey@wimglenn.com",
     license="MIT",
     packages=["wimpy"],
+    options={"bdist_wheel": {"universal": True}},
 )
