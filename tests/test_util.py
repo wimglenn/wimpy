@@ -3,6 +3,7 @@ from random import random
 
 import pytest
 
+from wimpy import __version__
 from wimpy import WimpyError
 from wimpy import cached_property
 from wimpy import ceiling_division
@@ -153,3 +154,8 @@ def test_chunks_from_infinite_generator():
 )
 def test_is_subsequence(needle, haystack, result):
     assert is_subsequence(needle, haystack) == result
+
+
+def test_metadata_version_in_sync():
+    importlib_metadata = pytest.importorskip("importlib.metadata")
+    assert importlib_metadata.version("wimpy") == __version__
