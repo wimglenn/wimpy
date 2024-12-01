@@ -36,7 +36,7 @@ jobs:
       - name: Run tests for ${{ matrix.python-version }} on ${{ matrix.os }}
         run: pytest --cov=wimpy
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -54,6 +54,6 @@ jobs:
       - name: Run tests for Python 2.7 on ubuntu-20.04
         run: pytest --cov=wimpy
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
